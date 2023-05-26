@@ -14,14 +14,16 @@ function markTaskAsDone(mysqli $mysqli, int $taksId): void
     $mysqli->query($sql);
 }
 
-function createSenderTask(mysqli $mysqli, array $jobList): void
+function createSenderJob(mysqli $mysqli, array $jobList): void
 {
     $sql = 'insert into `job` set `job_json` = "' . $mysqli->escape_string(json_encode($jobList)) . '", total = ' . count($jobList);
     $mysqli->query($sql);
 
     $jobId = $mysqli->insert_id;
 
-    echo 'Execute job#' . $jobId . PHP_EOL;
+    // Запускаем фоновый процесс для выполнения рассылки почты
+    // Предполагаем, что сообщения шлются один за другим.
+    echo 'Execute job# ' . $jobId . PHP_EOL;
     passthru('(php -f ' . __DIR__ . '/../executeJob.php ' . $jobId . ' &) >> /dev/null 2>&1');
 }
 
@@ -41,7 +43,7 @@ function processUser(mysqli $db, array $user, int $days): void
     if ((int)$user['checked'] === 0) {
         $checkResult = check_email($user['email']);
 
-        setUserChecked($db, $user['id'], $checkResult);
+        setUserEmailChecked($db, $user['id'], $checkResult);
         $user['checked'] = 1;
         $user['valid'] = $checkResult;
     }

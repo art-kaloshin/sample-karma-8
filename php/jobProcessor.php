@@ -22,10 +22,10 @@ while ($task = $activeTaskResult->fetch_array()) {
     markTaskAsDone($db, $task['task_id']);
 
     if (count($jobArray) >= MAX_MESSAGE_PER_SENDER) {
-        createSenderTask($db, $jobArray);
+        createSenderJob($db, $jobArray);
 
         $jobArray = [];
     }
 }
 
-createSenderTask($db, $jobArray);
+createSenderJob($db, $jobArray);
