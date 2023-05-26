@@ -6,8 +6,9 @@ const FROM_ADDR = 'info@google.com';
 
 function check_email(string $email): int
 {
-    sleep(rand(1, MAX_CHECK_DELAY));
+    echo 'Checking email: ' . $email . PHP_EOL;
 
+    sleep(rand(1, MAX_CHECK_DELAY));
     return rand(0, 1);
 }
 
