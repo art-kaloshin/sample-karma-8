@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+    karma_app:
+        container_name: karma_app
+        image: webdevops/php-apache:8.2
+        volumes:
+            - ".:/app"
+        ports:
+            - "80:80"
+        environment:
+            WEB_DOCUMENT_ROOT: /app/public
+
+    mysql_karma:
+        ports:
+            - "3336:3306"
+        image: mysql
+        container_name: mysql_karma_app
+        volumes:
+            - "./mysql:/var/lib/mysql"
+        environment:
+            MYSQL_DATABASE: sample
+            MYSQL_USER: sample
+            MYSQL_PASSWORD: sample_pass
+            MYSQL_ROOT_PASSWORD: root_pass
+
