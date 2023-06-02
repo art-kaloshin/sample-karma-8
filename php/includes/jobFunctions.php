@@ -25,9 +25,9 @@ function markJobAsDone(mysqli $mysqli, int $jobId): void
     $mysqli->query($sql);
 }
 
-function markTaskAsDone(mysqli $mysqli, int $taksId): void
+function markTaskAsDone(mysqli $mysqli, int $taskId): void
 {
-    $sql = 'update `send_tasks` set `is_done` = 1 where `id` = ' . $taksId;
+    $sql = 'update `send_tasks` set `is_done` = 1 where `id` = ' . $taskId;
     $mysqli->query($sql);
 }
 
